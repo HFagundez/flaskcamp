@@ -1,0 +1,60 @@
+{% extends 'base.html'%}
+
+{% block title %}
+     <title>Categorias</title>
+{% endblock %} 
+   
+
+{% block content %}
+<div class="jumbotron">
+    <h3> Categorias</h3>
+    <div class="card">
+        <div class="card-body">
+            
+                <p class="card-subtitle mb-2 text-muted">Agregar Categoria</p>
+
+                <form action="{{ url_for('categorias') }}" method="POST" enctype="multipart/form-data">
+					{{ form.csrf_token }}
+                             
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{form.name.label}}
+                            {{ form.name(class="form-control", placeholder="nombre categoría") }}
+                                {% for error in form.name.errors %}
+                                    <li style="color:red;">{{error}}</li>
+                                {% endfor %}                          
+                                {% if error %}
+                                    <li style="color:red;">{{error}}</li>    
+                                {% endif %}
+                        </div>     
+                    </div>    
+                                     
+                    <div class="form-row">
+						<button type="submit" class="btn btn-danger btn-block">Aceptar</button>
+					</div>
+
+
+                </form>
+        </div>        
+    </div>        
+</div>    
+
+<div class="jumbotron">
+    <h3 class="card text-center"> Categorias </h3>
+         
+    {% for cat in resCats  %}
+        <div class="card text-right" >
+            <div class="card-body">
+                <h5 class="card-title">{{cat.name}}</h5>
+                <hr>  
+                <a href="/editCat/{{ cat.id }}" class="btn btn-warning" style="width: 7rem"> Edit {{cat.id}} </a>
+                <a href="/delCat/{{ cat.id }}" class="btn btn-danger" style="width: 7rem">Delete {{cat.id}}</a>
+            </div>
+        </div>
+    {% endfor %}  
+
+
+</div>    
+
+
+{% endblock %}    

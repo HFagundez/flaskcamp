@@ -1,0 +1,106 @@
+{% extends 'base.html'%}
+
+{% block title %}
+     <title>Subategorias</title>
+{% endblock %} 
+   
+
+{% block content %}
+<div class="jumbotron">
+    <h3> Subcategorias</h3>
+    <div class="card">
+        <div class="card-body">
+            
+                <p class="card-subtitle mb-2 text-muted">Elegir Categoria</p>
+
+                <form action="{{ url_for('subcategorias') }}" method="POST" enctype="multipart/form-data">
+					{{ form.csrf_token }}
+                             
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{form.cats}}
+                                {% for error in form.cats.errors %}
+                                    <li style="color:red;">{{error}}</li>
+                                {% endfor %}                         
+                        </div>     
+                    </div>    
+                                     
+                    <div class="form-row">
+						<button type="submit" class="btn btn-danger btn-block">Cargar Subcategorias</button>
+					</div>
+                </form>
+        </div>        
+    </div>        
+</div>    
+
+
+
+{% if sel_cat %}
+<div class="jumbotron">
+      <div class="card">
+        <div class="card-body">
+            
+                <p class="card-subtitle mb-2 text-muted">Agregar Subcategoria a {{sel_cat}}</p>
+
+                <form action="{{ url_for('subcategorias') }}" method="POST" enctype="multipart/form-data">
+					{{ form_add.csrf_token }}
+                             
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{form_add.name.label}}
+                            {{ form_add.name(class="form-control", placeholder="nombre subcategoría") }}
+                                {% for error in form_add.name.errors %}
+                                    <li style="color:red;">{{error}}</li>
+                                {% endfor %}                          
+                                {% if error %}
+                                    <li style="color:red;">{{error}}</li>    
+                                {% endif %}
+                        </div>     
+                    </div>    
+
+                     <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{form_add.cat_name.label}}
+                            {{ form_add.cat_name(class="form-control") }}
+                                
+                        </div>     
+                    </div>    
+                                     
+                    <div class="form-row">
+						<button type="submit" class="btn btn-danger btn-block">Aceptar</button>
+					</div>
+
+
+                </form>
+        </div>        
+    </div>        
+</div>    
+{% endif %}
+
+
+
+
+
+
+{% if res_subcats %}
+
+<div class="jumbotron">
+    <h4 class="card text-center card-subtitle text-muted"> Subcategorias de {{sel_cat}}</h4>
+         
+    {% for subcat in res_subcats  %}
+        <div class="card text-right" >
+            <div class="card-body">
+                <h5 class="card-title">{{subcat.name}}</h5>
+                <hr>  
+                <a href="/editCat/{{ subcat.id }}" class="btn btn-warning" style="width: 7rem"> Edit {{subcat.id}} </a>
+                <a href="/delCat/{{ subcat.id }}" class="btn btn-danger" style="width: 7rem">Delete {{subcat.id}}</a>
+            </div>
+        </div>
+    {% endfor %}  
+</div>    
+{% endif %}  
+
+
+
+
+{% endblock %}    

@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block title %}
+     <title>Editar Categoria</title>
+{% endblock %} 
+   
+
+{% block content %}
+<div class="jumbotron">
+    <h3> Categorias</h3>
+    <div class="card">
+        <div class="card-body">
+            
+                <p class="card-subtitle mb-2 text-muted">Editar Categoria</p>
+
+                <form action="/editCat/{{cat.id}}" method="POST" enctype="multipart/form-data">
+					{{ form.csrf_token }}
+                             
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{form.name.label}}
+                            {{ form.name(class="form-control") }}
+                                {% for error in form.name.errors %}
+                                    <li style="color:red;">{{error}}</li>
+                                {% endfor %}                          
+                                {% if error %}
+                                    <li style="color:red;">{{error}}</li>    
+                                {% endif %}
+                        </div>     
+                    </div>    
+                                     
+                    <div class="form-row">
+						<button type="submit" class="btn btn-danger btn-block">Aceptar</button>
+					</div>
+
+
+                </form>
+        </div>        
+    </div>        
+</div>  
+
+{% endblock %}  

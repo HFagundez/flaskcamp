@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+
+{% block title %}
+     <title>Categorias</title>
+{% endblock %} 
+   
+
+{% block content %}
+<div class="jumbotron">
+    <h3> Categorias</h3>
+    <div class="card">
+        <div class="card-body">
+            
+                <p class="card-subtitle mb-2 text-muted">Agregar Categoria</p>
+
+               
+        </div>        
+    </div>        
+</div>    
+
+<div class="jumbotron">
+    <h3 class="card text-center"> Categorias </h3>
+         
+    {% for cat in resCats  %}
+        <div class="card text-right" >
+            <div class="card-body">
+                <h5 class="card-title">{{cat.name}}</h5>
+                <hr>  
+                <a href="/editCat/{{ cat.id }}" class="btn btn-warning" style="width: 7rem"> Edit {{cat.id}} </a>
+                <a href="/delCat/{{ cat.id }}" class="btn btn-danger" style="width: 7rem">Delete {{cat.id}}</a>
+            </div>
+        </div>
+    {% endfor %}  
+
+
+</div>    
+
+
+{% endblock %}    
